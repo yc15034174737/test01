@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.ProductMapper">
+
+    <sql id="PRODUCT">
+        id, pro_name, pro_count, is_del, user_id
+    </sql>
+    <update id="updateProduct">
+        update product
+            <set>
+                <if test="proName != null and proName != '' ">
+                    pro_name = #{proName},
+                </if>
+                <if test="proCount != null ">
+                    pro_count = #{proCount},
+                </if>
+                <if test="userId != null ">
+                    user_id = #{userId},
+                </if>
+                <if test="isDel != null ">
+                    is_del = #{isDel}
+                </if>
+            </set>
+            <where>
+                id = #{id}
+            </where>
+
+    </update>
+
+    <select id="findAll" resultType="Product" >
+        select
+            <include refid="PRODUCT" />
+        from  product
+        <where>
+            <if test="isDel != null">
+                is_del = #{isDel}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    
+    <insert id="addProduct" >
+        insert into
+            product(pro_name, pro_count, is_del, user_id)
+        values(#{proName}, #{proCount}, 1, #{userId})
+    </insert>
+
+    <select id="findProductByProName" resultType="Product" >
+        select
+        <include refid="PRODUCT" />
+        from  product
+        where pro_name = #{proName}
+    </select>
+    <select id="findProductById" resultType="com.dj.ssm.pojo.Product">
+        select
+            <include refid="PRODUCT" />
+        from  product
+        where id = #{id}
+    </select>
+</mapper>

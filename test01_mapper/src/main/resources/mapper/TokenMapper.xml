@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.TokenMapper">
+
+    <sql id="TOKEN">
+        id, user_id, token, valid_time
+    </sql>
+
+    <insert id="addToken">
+        insert into
+            token(user_id, token, valid_time)
+        values(#{userId},#{token},#{validTime})
+    </insert>
+    <update id="updateToken">
+        update token
+            <set>
+                <if test="userId != null">
+                    user_id = #{userId},
+                </if>
+                <if test="token != null and token != ''">
+                    token = #{token},
+                </if>
+                <if test="validTime != null ">
+                    valid_time = #{validTime}
+                </if>
+            </set>
+            <where>
+                id = #{id}
+            </where>
+    </update>
+
+    <select id="findTokenByUserId" resultType="com.dj.ssm.pojo.Token">
+        select
+            <include refid="TOKEN" />
+        from token where user_id = #{useId}
+    </select>
+    <select id="findTokenByUserToken" resultType="com.dj.ssm.pojo.Token" >
+        select
+            <include refid="TOKEN" />
+        from token
+        where token = #{token}
+        </select>
+</mapper>

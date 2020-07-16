@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.DjmallAreaMapper">
+
+    <sql id="DJMALLAREA">
+        id, area_name, area_pinyin, area_parent_id
+    </sql>
+
+    <select id="findDjmallAreaByParentId" resultType="com.dj.ssm.pojo.DjmallArea">
+        select <include refid="DJMALLAREA" /> from djmall_area where area_parent_id = #{areaParentId}
+    </select>
+</mapper>

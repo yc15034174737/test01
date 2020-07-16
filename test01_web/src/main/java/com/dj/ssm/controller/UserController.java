@@ -24,6 +24,7 @@ import java.util.*;
 public class UserController {
 
     private String a;
+    private String b;
     @Autowired
     private UserService userService;
 

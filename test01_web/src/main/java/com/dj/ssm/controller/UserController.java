@@ -23,6 +23,7 @@ import java.util.*;
 @RequestMapping("user")
 public class UserController {
 
+    private String a;
     @Autowired
     private UserService userService;
 
